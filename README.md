@@ -78,7 +78,7 @@ would have to translate.
 
 To prepare for writing a compiler, there are certain background topics
 that you might want to review.  First, as a general overview, you
-might look at the first part of the excellent book [Crafting Interpreters](https://craftinginterpeters.com).
+might look at the first part of the excellent book [Crafting Interpreters](https://craftinginterpreters.com).
 Writing a compiler is similar to an interpreter (in fact, we'll even be writing an
 interpreter as part of the project).   As for specific topics, here
 are some important facets of the project:
