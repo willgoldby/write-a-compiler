@@ -7,7 +7,7 @@ the language itself.  Mainly just to try and wrap our brains around
 it.
 
 Go to the `SillyWabbit` directory and read/work on the files
-`prog1.wb` through `prog5.wb`.  These programs are meant to teach you
+`prog1.wb` through `prog3.wb`.  These programs are meant to teach you
 some Wabbit basics.
 
 You can run these programs by typing a command like this:
