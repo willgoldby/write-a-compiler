@@ -52,15 +52,57 @@
 # Feel free to modify as appropriate.  You don't even have to use classes
 # if you want to go in a different direction with it.
 
-class Integer:
+class Node:
+    pass
+
+class Expression(Node):
+    pass
+
+class Statement(Node):
+    pass
+
+class Integer(Expression):
     '''
     Example: 42
     '''
     def __init__(self, value):
+        assert isinstance(value, str), value
         self.value = value
 
     def __repr__(self):
         return f'Integer({self.value})'
+
+class Float(Expression):
+    '''
+    Example: 3.0
+    '''
+    def __init(self, value):
+        assert isinstance(value, str), value
+        self.value = value
+
+    def __repr__(self):
+        return f'Float({self.value})'
+
+class Bool(Expression):
+    '''
+    Example: false, true
+    '''
+    def __init__(self, value):
+        assert value in {'true', 'false'}, value
+        self.value = value
+
+    def __repr__(self):
+        return f'Bool({self.value})'
+    
+class Op:
+    '''
+    Example: *, +, -. /
+    '''
+    def __init__(self,symbol):
+        self.symbol = symbol
+    
+    def __repr__(self):
+        return f'Op({self.symbol})'
 
 class BinOp:
     '''
@@ -73,6 +115,27 @@ class BinOp:
 
     def __repr__(self):
         return f'BinOp({self.op}, {self.left}, {self.right})'
+
+class UnaryOp:
+    '''
+    Example: -operand
+    '''
+    def __init__(self, op, operand):
+        self.op = op
+        self.operand = operand
+    
+    def __repr__(self):
+        return f'UnaryOp({self.op}, {self.operand})'
+
+class PrintStatement:
+    '''
+    Example: print 2
+    '''
+    def __init__(self, value):
+        self.value = value  
+    def __repr__(self):
+        return f'PrintStatement({self.value})'
+
 
 # -----------------------------------------------------------------------------
 # Debugging function to convert a model back into source code (for easier viewing)
@@ -89,9 +152,21 @@ def node_as_source(node):
     # Low-level function that makes source from different kinds of model nodes.
     if isinstance(node, Integer):
         return str(node.value)
+    
+    elif isinstance(node, Op):
+        return str(node.symbol)
 
     elif isinstance(node, BinOp):
-        return f'{node_as_source(node.left)} {node.op} {node_as_source(node.right)}'
+        return f'{node_as_source(node.left)} {node_as_source(node.op)} {node_as_source(node.right)}'
+
+    elif isinstance(node, UnaryOp):
+        return f'{node_as_source(node.op)}{node_as_source(node.operand)}'
+
+    elif isinstance(node, PrintStatement):
+        return f'{node_as_source(node.value)}'
+    
+    elif isinstance(node, list):
+        return ''.join(node_as_source(n) for n in node)
 
     else:
         raise RuntimeError(f"Can't convert {node} to source")

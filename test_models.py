@@ -37,8 +37,8 @@ print("--- Simple Expression")
 expr = Program("2 + 3 * 4")
 
 # Programs are represented by a data structure.  For example:
-expr.model  = BinOp('+', Integer('2'),
-                         BinOp('*', Integer('3'), Integer('4')))
+expr.model  = BinOp(Op('+'), Integer('2'),
+                         BinOp(Op('*'), Integer('3'), Integer('4')))
 
 # The following operation tries to turn the model representation back into
 # source code.  It's defined in the file wabbit/model.py.
@@ -64,9 +64,12 @@ program1 = Program("""
     print 2.0 - 3.0 / -4.0;
 """)
 
-program1.model = None       # Fix me
+program1.model = [
+    PrintStatement(Integer('2')),
+    PrintStatement(BinOp(Op('+'), Integer('2'), Integer('3')))]
+    
 
-# print(to_source(program1))
+print(to_source(program1))
 
 # ----------------------------------------------------------------------
 # Program 2: Variable and constant declarations. 
@@ -87,7 +90,7 @@ program2 = Program("""
 
 program2.model = None
 
-# print(to_source(program2))
+print(to_source(program2))
 
 # ----------------------------------------------------------------------
 # Program 3: Relations.  You have to be able to compare values.
